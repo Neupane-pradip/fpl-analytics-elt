@@ -1,0 +1,21 @@
+# Virtual Environment
+venv/
+.venv/
+*.pyc
+__pycache__/
+
+# Data
+data/raw/*
+!data/raw/.gitignore
+
+*.db
+*.duckdb
+*.sqlite
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/!/data/raw/
+!/data/raw/
