@@ -17,5 +17,5 @@ data/raw/*
 
 # IDE
 .vscode/
-.idea/!/data/raw/
+.idea/
 !/data/raw/

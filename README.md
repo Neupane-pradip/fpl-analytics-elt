@@ -58,7 +58,6 @@ fpl-analytics-elt/
 ├── README.md                    # This file
 │
 ├── src/                         # Source code modules
-│   ├── __init__.py
 │   ├── extract.py              # Data extraction from APIs
 │   ├── load.py                 # Data loading to staging
 │   ├── transform.py            # Data transformation logic
@@ -66,7 +65,6 @@ fpl-analytics-elt/
 │   └── query_analytics.py      # Analytics queries
 │
 ├── sql/                        # SQL scripts
-│   ├── 01_raw_staging.sql      # Raw data staging tables
 │   └── 02_star_schema.sql      # Dimensional star schema
 │
 └── data/                       # Data directory
