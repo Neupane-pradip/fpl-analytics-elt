@@ -37,7 +37,7 @@ def run_sample_queries():
                   FROM fact_player_season_stat f
                            JOIN dim_player p ON f.player_id = p.player_id
                            JOIN dim_team t ON f.team_id = t.team_id
-                  WHERE f.minutes_played > 450
+                  WHERE f.minutes_played > 90
                   ORDER BY points_per_million DESC
                       LIMIT 5; \
                   """

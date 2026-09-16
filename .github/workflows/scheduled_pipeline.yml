@@ -27,3 +27,26 @@ jobs:
 
       - name: Execute Main Pipeline
         run: python main.py
+
+      # ----------------------------------------------------------------------
+      # 1. STORE DUCKDB DATABASE AS AN ARTIFACT
+      # ----------------------------------------------------------------------
+      - name: Upload DuckDB Database Artifact
+        if: always() # Uploads even if quality checks fail, allowing post-mortem inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: fpl-duckdb-database
+          path: data/fpl.duckdb
+          retention-days: 7 # Keeps database downloadable for 7 days
+
+      # ----------------------------------------------------------------------
+      # 2. FAILURE ALERT (Slack / Discord / Webhook)
+      # ----------------------------------------------------------------------
+      - name: Send Slack Failure Notification
+        if: failure() # Executes ONLY if a previous step (like main.py) fails
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"❌ *FPL Data Pipeline Failed!*\nCheck GitHub Actions run logs: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'"}' \
+          $SLACK_WEBHOOK_URL
