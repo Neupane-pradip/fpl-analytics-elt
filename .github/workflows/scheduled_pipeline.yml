@@ -43,10 +43,10 @@ jobs:
       # 2. FAILURE ALERT (Slack / Discord / Webhook)
       # ----------------------------------------------------------------------
       - name: Send Slack Failure Notification
-        if: failure() # Executes ONLY if a previous step (like main.py) fails
+        if: ${{ failure() && secrets.SLACK_WEBHOOK_URL != '' }} # Executes ONLY if a previous step fails and webhook is configured
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
           --data '{"text":"❌ *FPL Data Pipeline Failed!*\nCheck GitHub Actions run logs: '${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}'"}' \
-          $SLACK_WEBHOOK_URL
+          "$SLACK_WEBHOOK_URL"
